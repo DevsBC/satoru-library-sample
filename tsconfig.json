@@ -14,6 +14,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "paths": {
+      "satoru-library": [
+        "dist/satoru-library/satoru-library",
+        "dist/satoru-library"
+      ]
+    },
     "target": "es2017",
     "module": "es2020",
     "lib": [
