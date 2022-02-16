@@ -1,5 +1,33 @@
-<button (click)="activate()">A Darle</button>
-<ng-container *ngIf="ready">
-    <h1>Segundos: </h1>
-    <h2>{{ totalSeconds }}</h2>
-</ng-container> 
+<ng-container>
+    <div class="mat-elevation-z8"  style="padding: 5px;">
+        <form #form="ngForm" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+            <mat-form-field class="my-form-field" appearance="outline" fxFlex fxFlex.lt-md="100">
+                <mat-label>Tarea o actividad en curso</mat-label>
+                <input matInput placeholder="¿En qué estas trabajando?" [(ngModel)]="task.description" name="description">
+            </mat-form-field>
+            <mat-form-field class="my-form-field" appearance="outline" fxFlex="15" fxFlex.lt-md="100">
+                <mat-label>Proyecto</mat-label>
+                <input matInput [(ngModel)]="task.projectName" name="projectName">
+            </mat-form-field>
+            <mat-form-field class="my-form-field" appearance="outline" fxFlex="15" fxFlex.lt-md="100">
+                <mat-label>Etiquetas</mat-label>
+                <input matInput [(ngModel)]="task.tags" name="tags">
+            </mat-form-field>
+            <div fxFlex="10" fxFlex.lt-md="100">
+                <mat-slide-toggle labelPosition="before" [(ngModel)]="task.billable" name="billable">Facturable</mat-slide-toggle>
+            </div>
+            <div fxFlex="15" fxLayout="column">
+                <span style="font-size: 25pt; text-align: center; padding-bottom: 10px;">{{ time }}</span>
+                <button mat-raised-button color="primary" type="button" style="width: 100%;" *ngIf="!task.id" (click)="initTask(form)">INICIAR</button>
+                <button mat-raised-button color="warn" type="button" style="width: 100%;" *ngIf="task.id" (click)="stopTask()">DETENER</button>
+            </div>
+            <div fxFlex="5" fxLayoutAlign="end">
+                <mat-button-toggle-group value="automatic" vertical>
+                    <mat-button-toggle value="automatic"><mat-icon>schedule</mat-icon></mat-button-toggle>
+                    <mat-button-toggle value="manual"><mat-icon>list</mat-icon></mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </form>
+    </div>
+  
+</ng-container>

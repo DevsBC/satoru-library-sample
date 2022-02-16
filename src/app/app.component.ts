@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'satoru';
+
+  saveTask(task: any) {
+    console.log(task);
+  }
 }

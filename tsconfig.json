@@ -15,9 +15,11 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "paths": {
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
       "satoru-library": [
-        "dist/satoru-library/satoru-library",
-        "dist/satoru-library"
+        "projects/satoru-library/src/public-api",
       ]
     },
     "target": "es2017",
@@ -31,6 +33,6 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
   }
 }

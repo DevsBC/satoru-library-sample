@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 /** LOCAL REFERENCE FOR TESTING */
-import { SatoruLibraryModule } from 'projects/satoru-library/src/lib/satoru-library.module';
+import { SatoruLibraryModule } from 'satoru-library';
 import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
