@@ -2,10 +2,11 @@
   "name": "satoru-library",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^12.2.0",
-    "@angular/core": "^12.2.0"
+    "@angular/common": "^13.2.2",
+    "@angular/core": "~13.2.2"
   },
   "dependencies": {
+    "@angular/material": "^13.2.2",
     "tslib": "^2.3.0"
   }
 }
