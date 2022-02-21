@@ -10,6 +10,8 @@ export class ScrumBoardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    const elem = document.querySelector('sat-time-tracker');
+
   }
 
 }

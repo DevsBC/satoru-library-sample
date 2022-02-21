@@ -1,6 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ITask } from '../../interfaces/task.interface';
+
+declare var M: any;
 
 /** Satoru Time Tracker: Seguimiento de tareas por tiempo */
 @Component({
@@ -10,6 +12,9 @@ import { ITask } from '../../interfaces/task.interface';
   encapsulation: ViewEncapsulation.None
 })
 export class TimeTrackerComponent implements OnInit {
+
+  @Input() projects: string[] = [];
+  @Input() tags: string[] = [];
 
   @Output() startTaskEvent = new EventEmitter();
   @Output() stopTaskEvent = new EventEmitter();
@@ -21,6 +26,7 @@ export class TimeTrackerComponent implements OnInit {
   time = '00:00:00';
   timer: any;
   key = 'sat_time_tracking_init_task';
+  chipsInstance: any;
 
   constructor() { }
 
@@ -29,11 +35,49 @@ export class TimeTrackerComponent implements OnInit {
       this.setTimer();
       this.startTimer();
     }
+    this.initForm();
   }
 
-  initTask(form: NgForm) {
+  private initForm() {
+    console.log(this.task);
+    const getData = (array: string[]) => {
+      const obj: any = {};
+      for (const item of array) {
+        obj[item] = null;
+      }
+      return obj;
+    }
+    let elems: any;
+
+    /** PROJECTS */
+    elems = document.querySelector('#projectName');
+    M.Autocomplete.init(elems, { 
+      data: getData(this.projects), 
+      minLength: 0, 
+      limit: 10, 
+      onAutocomplete: (projectName: any) => this.task.projectName = projectName 
+    });
+
+    /** TAGS */
+    elems = document.querySelectorAll('#tags');
+    M.Chips.init(elems, { 
+      autocompleteOptions: { data: getData(this.tags), limit: 20, minLength: 0 }, 
+      placeholder: 'Etiquetas',
+      onChipAdd: (e: any) => this.setTags(e[0].M_Chips.chipsData),
+      onChipSelect: (e: any) => this.setTags(e[0].M_Chips.chipsData),
+      onChipDelete: (e: any) => this.setTags(e[0].M_Chips.chipsData)
+    });
+    if (this.task.tags) {
+      this.chipsInstance = M.Chips.getInstance(elems[0]);
+      for (const tag of this.task.tags) {
+        this.chipsInstance.addChip({tag});
+      }
+    }
+  }
+
+  public initTask(form: NgForm) {
     if (form.invalid) { return; }
-    this.task.id = 'ID';
+    this.task.id = Date.now().toString();
     this.task!.timeInterval = {
       start: this.getDate()
     }
@@ -43,7 +87,7 @@ export class TimeTrackerComponent implements OnInit {
     this.startTaskEvent.emit(this.task);
   }
 
-  startTimer() {
+  private startTimer() {
     const addZero = (value: number) => value < 10 ? '0' + String(value) : String(value);
    
     this.timer = setTimeout(() => {
@@ -61,7 +105,7 @@ export class TimeTrackerComponent implements OnInit {
     },1000);
   }
 
-  stopTask() {
+  public stopTask() {
     const newTask = { ...this.task };
     newTask.timeInterval.end = this.getDate();
     newTask.timeInterval.duration = this.getDuration();
@@ -70,12 +114,12 @@ export class TimeTrackerComponent implements OnInit {
     clearTimeout(this.timer);
     this.hours = 0;  
     this.minutes = 0;
-    this.seconds =0;
+    this.seconds = 0;
     localStorage.removeItem(this.key);
     this.stopTaskEvent.emit(newTask);
   }
 
-  setTimer() {
+  private setTimer() {
     this.task = JSON.parse(localStorage.getItem(this.key)!) as ITask;
     const date1 = new Date(this.task.timeInterval.start.unix);
     const date2 = new Date();
@@ -86,15 +130,25 @@ export class TimeTrackerComponent implements OnInit {
     if (this.hours >= 8) { this.stopTask(); }
   }
 
-  getDuration() {
+  private getDuration() {
     return (this.hours * 3600) + (this.minutes * 60) + this.seconds;
   }
 
-  getDate() {
+  private getDate() {
     return {
       unix: Date.now(),
       readable: new Date().toLocaleString('es-Es', { timeZone: 'America/Denver' })
     };
   }
+
+  private setTags(array: any) {
+    this.task.tags = array.map((a: any) => a.tag);
+  }
+
+  private randomString(length = 24) {
+    const p = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return [...Array(length)].reduce(a=> a + p[~~(Math.random() * length)],'');
+  }
+
 
 }

@@ -1,5 +1,7 @@
 <ng-container>
-    <div class="mat-elevation-z8"  style="padding: 5px;">
+
+    <!--
+        <div class="mat-elevation-z8"  style="padding: 5px;">
         <form #form="ngForm" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="center center">
             <mat-form-field class="my-form-field" appearance="outline" fxFlex fxFlex.lt-md="100">
                 <mat-label>Tarea o actividad en curso</mat-label>
@@ -29,5 +31,35 @@
             </div>
         </form>
     </div>
+    -->
+    
+
+
+    <form class="card row valign-wrapper" #form="ngForm">
+        <div class="input-field col s4">
+          <input placeholder="¿En qué estas trabajando?" id="description" type="text" class="validate"  [(ngModel)]="task.description" name="description">
+          <label for="description">Tarea o actividad en curso</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="projectName" type="text" class="autocomplete" autocomplete="off" [(ngModel)]="task.projectName" name="projectName">
+          <label for="projectName">Proyecto</label>
+        </div>
+        <div class="chips chips-autocomplete col s2" id="tags" ></div>
+        <div class="input-field col center-align s2">
+            <div class="switch">
+                <label>
+                    <span style="font-size: 15pt;">Facturable</span>
+                    <input type="checkbox" [(ngModel)]="task.billable" name="billable">
+                    <span class="lever"></span>
+                </label>
+            </div>
+        </div>
+        <div class="input-field col center-align s2">
+            <span style="font-size: 25pt; padding-bottom: 10px;">{{ time }}</span>
+            <a class="waves-effect waves-light btn blue" style="width: 100%;" *ngIf="!task.id" (click)="initTask(form)">INICIAR</a>
+            <a class="waves-effect waves-light btn red" style="width: 100%;" *ngIf="task.id" (click)="stopTask()">DETENER</a>
+        </div>
+    </form>
+
   
 </ng-container>
