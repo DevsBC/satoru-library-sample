@@ -1,26 +1,27 @@
+@import url(../../styles.css);
 .input-outlined > input {
-    border: 2px solid #eee;
-    padding: 12px 16px 14px;
-    width: calc(100% - 2.5rem);
-    float: none;
-    display: block;
-    border-radius: 4px;
-    transition: box-shadow, border-color 0.15s;
+    border: 2px solid #eee!important;
+    padding: 12px 16px 14px!important;
+    width: calc(100% - 2.5rem)!important;
+    float: none!important;
+    display: block!important;
+    border-radius: 4px!important;
+    transition: box-shadow, border-color 0.15s!important;
 }
 .input-outlined > input:focus:not([readonly]) {
-    border-color: #26A69B;
-    box-shadow: 0 1px 0 0px #26A69B;
+    border-color: #26A69B!important;
+    box-shadow: 0 1px 0 0px #26A69B!important;
 }
 .input-outlined > label {
-    left: 27px;
-    display: inline-flex;
+    left: 27px!important;
+    display: inline-flex!important;
     width: auto !important;
 }
 .input-outlined > label.active {
-    background: white;
-    border-left: 4px solid white;
-    border-right: 4px solid white;
-    transform: translateY(-1.75rem);
-    top: 1rem;
+    background: white!important;
+    border-left: 4px solid white!important;
+    border-right: 4px solid white!important;
+    transform: translateY(-1.75rem)!important;
+    top: 1rem!important;
 }
 

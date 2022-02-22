@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ITask } from '../../interfaces/task.interface';
 import { CommonFunctionsService } from '../../services/common-functions.service';
-
 declare var M: any;
 
 /** Satoru Time Tracker: Seguimiento de tareas por tiempo */
@@ -9,6 +8,7 @@ declare var M: any;
   selector: 'sat-time-tracker',
   templateUrl: './time-tracker.component.html',
   styleUrls: ['./time-tracker.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TimeTrackerComponent implements OnInit {
 
