@@ -1,3 +1,5 @@
+import { IDate } from "./common.interfaces";
+
 export interface ITask {
     id: string;
     description: string;
@@ -12,8 +14,8 @@ export interface ITask {
     billable: boolean;
     amount?: number;
     timeInterval: {
-        start: { readable: string, unix: number };
-        end?: { readable: string, unix: number };
+        start: IDate;
+        end?: IDate;
         duration?: number;
     }
 }

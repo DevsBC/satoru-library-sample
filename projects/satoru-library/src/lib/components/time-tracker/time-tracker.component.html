@@ -1,65 +1,27 @@
-<ng-container>
-
-    <!--
-        <div class="mat-elevation-z8"  style="padding: 5px;">
-        <form #form="ngForm" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutAlign="center center">
-            <mat-form-field class="my-form-field" appearance="outline" fxFlex fxFlex.lt-md="100">
-                <mat-label>Tarea o actividad en curso</mat-label>
-                <input matInput placeholder="¿En qué estas trabajando?" [(ngModel)]="task.description" name="description">
-            </mat-form-field>
-            <mat-form-field class="my-form-field" appearance="outline" fxFlex="15" fxFlex.lt-md="100">
-                <mat-label>Proyecto</mat-label>
-                <input matInput [(ngModel)]="task.projectName" name="projectName">
-            </mat-form-field>
-            <mat-form-field class="my-form-field" appearance="outline" fxFlex="15" fxFlex.lt-md="100">
-                <mat-label>Etiquetas</mat-label>
-                <input matInput [(ngModel)]="task.tags" name="tags">
-            </mat-form-field>
-            <div fxFlex="10" fxFlex.lt-md="100">
-                <mat-slide-toggle labelPosition="before" [(ngModel)]="task.billable" name="billable">Facturable</mat-slide-toggle>
-            </div>
-            <div fxFlex="15" fxLayout="column">
-                <span style="font-size: 25pt; text-align: center; padding-bottom: 10px;">{{ time }}</span>
-                <button mat-raised-button color="primary" type="button" style="width: 100%;" *ngIf="!task.id" (click)="initTask(form)">INICIAR</button>
-                <button mat-raised-button color="warn" type="button" style="width: 100%;" *ngIf="task.id" (click)="stopTask()">DETENER</button>
-            </div>
-            <div fxFlex="5" fxLayoutAlign="end">
-                <mat-button-toggle-group value="automatic" vertical>
-                    <mat-button-toggle value="automatic"><mat-icon>schedule</mat-icon></mat-button-toggle>
-                    <mat-button-toggle value="manual"><mat-icon>list</mat-icon></mat-button-toggle>
-                </mat-button-toggle-group>
-            </div>
-        </form>
-    </div>
-    -->
-    
-
-
-    <form class="card row valign-wrapper" #form="ngForm">
-        <div class="input-field col s4">
+<div style="width: 95%; margin: auto;">
+    <form class="card-panel row valign-wrapper z-depth-3" #form="ngForm">
+        <div class="input-field input-outlined col s6">
           <input placeholder="¿En qué estas trabajando?" id="description" type="text" class="validate"  [(ngModel)]="task.description" name="description">
           <label for="description">Tarea o actividad en curso</label>
         </div>
-        <div class="input-field col s2">
+        <div class="input-field input-outlined col s3">
           <input id="projectName" type="text" class="autocomplete" autocomplete="off" [(ngModel)]="task.projectName" name="projectName">
           <label for="projectName">Proyecto</label>
         </div>
-        <div class="chips chips-autocomplete col s2" id="tags" ></div>
-        <div class="input-field col center-align s2">
+        <div class="chips chips-autocomplete col s3" id="tags"></div>
+        <div class="input-field col center-align">
             <div class="switch">
                 <label>
-                    <span style="font-size: 15pt;">Facturable</span>
+                    <span class="flow-text">Facturable</span>
                     <input type="checkbox" [(ngModel)]="task.billable" name="billable">
                     <span class="lever"></span>
                 </label>
             </div>
         </div>
-        <div class="input-field col center-align s2">
-            <span style="font-size: 25pt; padding-bottom: 10px;">{{ time }}</span>
-            <a class="waves-effect waves-light btn blue" style="width: 100%;" *ngIf="!task.id" (click)="initTask(form)">INICIAR</a>
+        <div class="input-field col center-align">
+            <h4>{{ time }}</h4>
+            <a class="waves-effect waves-light btn blue" style="width: 100%;" *ngIf="!task.id" (click)="initTask()">INICIAR</a>
             <a class="waves-effect waves-light btn red" style="width: 100%;" *ngIf="task.id" (click)="stopTask()">DETENER</a>
         </div>
     </form>
-
-  
-</ng-container>
+</div>

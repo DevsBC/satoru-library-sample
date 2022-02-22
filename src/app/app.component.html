@@ -1,9 +1,11 @@
 <h1>Satoru Library Sample</h1>
-<h2 style="text-align: center;"> Time Tracker </h2>
+<h2> Time Tracker </h2>
 <sat-time-tracker
 (startTaskEvent)="saveTask($event)"
 (stopTaskEvent)="saveTask($event)" 
-[projects]="['injectronic-build', 'complejo-polanco']" 
-[tags]="['clean', 'development']"></sat-time-tracker>
+[projects]="['sat', 'oru']"
+tags="production, test, env"
+></sat-time-tracker>
 
+<h2>Scrum Board</h2>
 <sat-scrum-board></sat-scrum-board>
