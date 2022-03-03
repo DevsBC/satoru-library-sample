@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'satoru-library';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'satoru';
+
+  constructor( private auth: AuthService) {}
 
   saveTask(task: any) {
     console.log(task);

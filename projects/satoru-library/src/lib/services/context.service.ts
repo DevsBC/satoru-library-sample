@@ -7,7 +7,7 @@ export class ContextService {
 
   private production = this.env.production;
 
-  constructor(@Inject('env') private env: any) {}
+  constructor(@Inject('environment') private env: any) {}
 
   public getContext(): string {
     if (this.existsContext()) {

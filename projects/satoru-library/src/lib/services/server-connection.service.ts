@@ -12,7 +12,7 @@ export class ServerConnectionService {
   private app!: string;
   private mode = 'test';
 
-  constructor(private modeService: ModeService,  @Inject('env') private env: any, private contextService: ContextService) { }
+  constructor(private modeService: ModeService,  @Inject('environment') private env: any, private contextService: ContextService) { }
 
   public initServerConnection(app: string, endpoint: string, version?: number): string {
     this.mode = this.modeService.getMode();

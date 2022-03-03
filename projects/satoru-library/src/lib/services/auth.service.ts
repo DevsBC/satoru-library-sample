@@ -11,7 +11,7 @@ export class AuthService {
   private sessionName = this.env.sessionName ||  '_default_satoru_session';
   private urlToRedirect = this.env.urlToRedirect || 'access';
 
-  constructor(private http: HttpClient, private router: Router,  @Inject('env') private env: any) {}
+  constructor(private http: HttpClient, private router: Router,  @Inject('environment') private env: any) {}
 
   /** URL to access and Payload generic ex. { user, options } || { user } */
   public async access(endpoint: string, payload: any): Promise<string> {

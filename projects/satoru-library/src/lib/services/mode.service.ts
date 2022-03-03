@@ -7,7 +7,7 @@ export class ModeService {
 
   production = this.env.production;
 
-  constructor(@Inject('env') private env: any) {}
+  constructor(@Inject('environment') private env: any) {}
 
   public getMode(): string {
     if (this.existsMode()) {
