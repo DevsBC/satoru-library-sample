@@ -1,6 +1,6 @@
 {
   "name": "satoru-library",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "author": "Juan Carlos Aranda Alonso",
   "peerDependencies": {
     "@angular/common": "^13.2.2",
