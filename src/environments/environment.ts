@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  server: 'http://localhost:3000/api',
+  geolocationId: 'tr_id_injec_tronic',
+  geolocationKey: 'c8b03d10-7d57-11ec-93d7-47b318f4660d'
 };
 
 /*
