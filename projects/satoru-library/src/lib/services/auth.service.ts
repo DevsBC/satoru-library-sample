@@ -13,11 +13,19 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router,  @Inject('environment') private env: any) {}
 
-  /** URL to access and Payload generic ex. { user, options } || { user } */
-  public async access(endpoint: string, payload: any): Promise<string> {
-    const token = await firstValueFrom(this.http.post<string>(endpoint, payload));
-    this.saveSession(token);
-    return token;
+    /**
+   * @description Retorna o envia un objeto para ser procesado como un inicio de sesion
+   * @param endpoint URL POST donde el objeto sera procesado (Body { eventData })
+   * @example https://myamazingserver.com/auth/signin
+   * @param payload Objeto enviado
+   * @example { user, options } || { user }
+   * @param saveToken Bandera para guardar la sesion (por defecto localStorage)
+   * @example true || false
+   * @returns Token as string || Object as any
+  */
+  public async access(endpoint: string, payload: any, saveToken = true): Promise<any> {
+    const response = await firstValueFrom(this.http.post<any>(endpoint, payload));
+    return saveToken ? this.saveSession(response) : response;
   }
 
   /* Use this in your Guards */
@@ -50,8 +58,9 @@ export class AuthService {
     this.router.navigateByUrl(this.urlToRedirect);
   }
 
-  private saveSession(session: any): void {
+  private saveSession(session: any): string {
     localStorage.setItem(this.sessionName, session);
+    return session;
   }
 
   private decryptSession(token: string): any {
