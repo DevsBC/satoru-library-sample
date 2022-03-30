@@ -9,7 +9,7 @@ import { firstValueFrom } from 'rxjs';
 export class AuthService {
 
   private sessionName = this.env.sessionName ||  '_default_satoru_session';
-  private urlToRedirect = this.env.urlToRedirect || 'access';
+  private urlToRedirect = 'access';
 
   constructor(private http: HttpClient, private router: Router,  @Inject('environment') private env: any) {}
 
@@ -53,7 +53,11 @@ export class AuthService {
   }
 
   public logout(urlToRedirect?: string): void {
+    const accessRoute = sessionStorage.getItem('redirectTo');
     this.urlToRedirect = urlToRedirect || this.urlToRedirect;
+    if (accessRoute) {
+      this.urlToRedirect = accessRoute;
+    }
     localStorage.removeItem(this.sessionName);
     this.router.navigateByUrl(this.urlToRedirect);
   }
