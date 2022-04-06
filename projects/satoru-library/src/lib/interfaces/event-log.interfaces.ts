@@ -1,10 +1,9 @@
-import { IDate } from "./common.interfaces";
 
 export interface IEventLog {
     name: string;
     count: number;
-    creationDate: IDate;
-    updateDate: IDate;
+    creationDate: Date;
+    updateDate: Date;
     origins: IOrigin[];
     values?: any;
     username: string;
