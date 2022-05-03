@@ -1,6 +1,4 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { TimeTrackerComponent } from './components/time-tracker/time-tracker.component';
-import { ScrumBoardComponent } from './components/scrum-board/scrum-board.component';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
@@ -8,9 +6,20 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token-interceptor.service';
 import { ErrorInterceptor } from './services/error-interceptor.service';
 
+/** COMPONENTS */
+import { ToggleModeComponent } from './components/toggle-mode/toggle-mode.component';
+import { HeaderComponent } from './components/header/header.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+
+/** ANGULAR MATERIAL  */
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 const COMPONENTS = [
-  TimeTrackerComponent,
-  ScrumBoardComponent
+  ToggleModeComponent,
+  HeaderComponent,
+  ConfirmDialogComponent
 ];
 
 @NgModule({
@@ -18,7 +27,10 @@ const COMPONENTS = [
   imports: [
     CommonModule, 
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [...COMPONENTS],
 })

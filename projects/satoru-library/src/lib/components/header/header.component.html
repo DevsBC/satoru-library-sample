@@ -1,0 +1,22 @@
+<div style="padding: 10px;">
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px">
+        <!-- SECTION FOR EXTRA ADDED FROM PARENT -->
+        <div #start >
+            <ng-content select="[slot='start']" fxFlex="33" fxFlex.lt-md="100"></ng-content>
+        </div>
+        <span *ngIf="start.children.length === 0"></span>
+        <!-- SECTION FOR EXTRA ADDED FROM PARENT -->
+    
+        <h2 style="text-align: center;" class="animate__animated animate__fadeIn" fxFlex>
+            {{ data.title }}
+        </h2>
+    
+        <!-- SECTION FOR EXTRA ADDED FROM PARENT -->
+        <div #end>
+            <ng-content select="[slot='end']" fxFlex="33" fxFlex.lt-md="100"></ng-content>
+        </div>
+        <span *ngIf="end.children.length === 0"></span>
+        <!-- SECTION FOR EXTRA ADDED FROM PARENT -->
+    
+    </div>
+</div>

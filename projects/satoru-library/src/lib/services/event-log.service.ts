@@ -24,10 +24,7 @@ export class EventLogService {
   }
 
   public getIp() {
-    if (!this.key) {
-      throw new Error('Geolocation key is not defined qliao: missing freegeoip apikey');
-    }
-    return this.http.get(`https://api.freegeoip.app/json/?apikey=${this.key}`);
+    return this.http.get(`https://www.iplocate.io/api/lookup`);
   }
 
   /**
@@ -59,13 +56,15 @@ export class EventLogService {
     if (geolocation) {
       this.geolocation = {
         ip: geolocation?.ip || '',
-        country: geolocation?.country_name || '',
-        regionName: geolocation?.region_name || '',
+        country: geolocation?.country || '',
+        regionName: geolocation?.subdivision || '',
         city: geolocation?.city || '',
-        zip: geolocation?.zip_code || '',
+        zip: geolocation?.postal_code || '',
         latitude: geolocation?.latitude || 0,
         longitude: geolocation?.longitude || 0,
-        timezone: geolocation?.time_zone || ''
+        timezone: geolocation?.time_zone || '',
+        org: geolocation?.org || '',
+        continent: geolocation?.continent || ''
       }
     } else {
       this.geolocation = {} as IGeolocation;

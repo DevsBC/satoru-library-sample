@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<h3 *ngIf="data.subtitle">{{ data.subtitle }}</h3>
+<mat-dialog-content *ngIf="data.message">
+    <p [innerHtml]="data.message" style="max-height: 400px; overflow: auto;"></p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="warn" tabindex="1" (click)="confirm()">{{ data.confirmText }}</button>
+    <button mat-raised-button mat-dialog-close tabindex="-1">{{ data.cancelText }}</button>
+</mat-dialog-actions>

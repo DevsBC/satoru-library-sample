@@ -44,5 +44,7 @@ export interface IGeolocation {
     longitude: number;
     timezone: string;
     os?: string;
+    org?: string;
+    continent?: string;
 }
   

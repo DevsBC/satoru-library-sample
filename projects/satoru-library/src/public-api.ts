@@ -4,14 +4,16 @@
 
 export * from './lib/satoru-library.module';
 
-/** WEB COMPONENTS */
-export * from './lib/components/scrum-board/scrum-board.component';
-export * from './lib/components/time-tracker/time-tracker.component';
+/** ANGULAR COMPONENTS */
+export * from './lib/components/toggle-mode/toggle-mode.component';
+export * from './lib/components/header/header.component';
+export * from './lib/components/confirm-dialog/confirm-dialog.component';
 
 /** INTERFACES */
 export * from './lib/interfaces/task.interface';
 export * from './lib/interfaces/common.interfaces';
 export * from './lib/interfaces/event-log.interfaces';
+export * from './lib/interfaces/confirm.interface';
 
 /** SERVICES */
 export * from './lib/services/auth.service';
