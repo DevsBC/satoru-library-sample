@@ -12,15 +12,10 @@ export class ToggleModeComponent {
   @Input() showLabel = true;
   @Input() isContext = true;
 
-  mode!: string;
-  context!: string;
+  mode: string;
 
   constructor(private modeService: ModeService, private contextService: ContextService) {
-    if (this.isContext) {
-      this.context = this.contextService.getContext();
-    } else {
-      this.mode = this.modeService.getMode();
-    }
+    this.mode = this.isContext ? this.contextService.getContext() : this.modeService.getMode();
   }
 
   ngOnInit() {}
