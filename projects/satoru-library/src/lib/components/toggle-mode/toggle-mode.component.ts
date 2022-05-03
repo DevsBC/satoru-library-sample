@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ContextService } from '../../services/context.service';
 import { ModeService } from '../../services/mode.service';
 
@@ -7,18 +7,18 @@ import { ModeService } from '../../services/mode.service';
   templateUrl: './toggle-mode.component.html',
   styleUrls: ['./toggle-mode.component.css'],
 })
-export class ToggleModeComponent {
+export class ToggleModeComponent implements OnInit {
 
   @Input() showLabel = true;
   @Input() isContext = true;
 
-  mode: string;
+  mode!: string;
 
-  constructor(private modeService: ModeService, private contextService: ContextService) {
+  constructor(private modeService: ModeService, private contextService: ContextService) {}
+
+  ngOnInit() {
     this.mode = this.isContext ? this.contextService.getContext() : this.modeService.getMode();
   }
-
-  ngOnInit() {}
 
   async toggleMode(event: any): Promise<void> {
     const checked = event.checked;
