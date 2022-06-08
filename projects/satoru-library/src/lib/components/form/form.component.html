@@ -1,0 +1,105 @@
+<ng-container *ngIf="formGroup">
+    <button mat-raised-button color="warn" *ngIf="context !== '1' && !form.object.id"
+    (click)="setDummyData()" style="width: 100%; margin-bottom: 20px;">DUMMY</button>
+    <form [formGroup]="formGroup"
+      *ngIf="showForm"
+      fxLayout="row wrap" fxLayout.lt-md="column"
+       fxLayoutGap="10px grid"
+      [class]="form.animation">
+  
+      <!-- SECTION FOR EXTRA ADDED FROM PARENT -->
+      <ng-content select="[slot='top']"></ng-content>
+      <!-- SECTION FOR EXTRA ADDED FROM PARENT -->
+  
+      <ng-container *ngFor="let field of form.fields">
+        <ng-container *ngIf="field.type === 'file'">
+          archivo
+        </ng-container>
+        <ng-container *ngIf="field.type !== 'file'">
+          <mat-form-field
+          *ngIf="!field.hidden"
+          [appearance]="form.appearance"
+          [fxFlex]="field.col" [fxFlex.lt-md]="100"
+          >
+            <mat-label>{{ field.name }}</mat-label>
+  
+            <ng-container *ngIf="field.element === 'input'">
+              <input matInput [placeholder]="field.placeholder" [formControlName]="field.property" [type]="field.type" *ngIf="!field.callback">
+            </ng-container>
+  
+            <ng-container *ngIf="field.element === 'textarea'">
+              <textarea matInput [placeholder]="field.placeholder" [formControlName]="field.property" *ngIf="!field.callback" [rows]="field.rows || 4"></textarea>
+            </ng-container>
+  
+            <!-- NO CALLBACK FOR SELECT -->
+            <ng-container *ngIf="field.element === 'select'">
+              <mat-select
+              [formControlName]="field.property"
+              [compareWith]="compareItems"
+              [multiple]="field.multiple"
+              [placeholder]="field.placeholder">
+                <mat-option *ngFor="let option of field.options" [value]="option.value">
+                  {{ option.name }}
+                </mat-option>
+              </mat-select>
+            </ng-container>
+  
+            <ng-container *ngIf="field.element === 'datepicker'">
+              <div style="display: flex;">
+                <input matInput [matDatepicker]="picker" [formControlName]="field.property" (click)="picker.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #picker></mat-datepicker>
+              </div>
+            </ng-container>
+  
+
+  
+            <!-- CALLBACKS ALL ELEMENTS AND EVENTS -->
+            <ng-container *ngIf="field.callback">
+              <ng-container *ngIf="field.callback.event === 'keyup'">
+                <input matInput [placeholder]="field.placeholder"
+                [formControlName]="field.property"
+                [type]="field.type"
+                *ngIf="field.element === 'input'"
+                (keyup)="field.callback.function($event.target, form)">
+  
+                <textarea matInput [placeholder]="field.placeholder"
+                [formControlName]="field.property"
+                *ngIf="field.element === 'textarea'"
+                (keyup)="field.callback.function($event.target, form)"></textarea>
+              </ng-container>
+  
+              <ng-container *ngIf="field.callback.event === 'click'">
+                <input matInput [placeholder]="field.placeholder"
+                [formControlName]="field.property"
+                [type]="field.type"
+                *ngIf="field.element === 'input'"
+                (click)="field.callback.function($event.target, form)">
+  
+                <textarea matInput [placeholder]="field.placeholder"
+                [formControlName]="field.property"
+                *ngIf="field.element === 'textarea'"
+                (click)="field.callback.function($event.target, form)"></textarea>
+              </ng-container>
+  
+            </ng-container>
+  
+            <mat-error *ngIf="formGroup.controls[field.property].hasError('required')">
+                {{ field.name }} <strong> requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+  
+  
+      <!-- SECTION FOR EXTRA INFO ADDED FROM PARENT -->
+      <ng-content  select="[slot='bottom']"></ng-content>
+      <!-- SECTION FOR EXTRA INFO ADDED FROM PARENT -->
+  
+      <button mat-raised-button color="primary" style="width: 100%;" [disabled]="formGroup.invalid" (click)="onSubmit()" >
+        {{ form.buttonText }}
+        <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20"></mat-spinner></mat-icon>
+      </button>
+    </form>
+  </ng-container>
+  

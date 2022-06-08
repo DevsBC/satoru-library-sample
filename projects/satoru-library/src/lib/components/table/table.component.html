@@ -1,0 +1,53 @@
+
+<div [class]="'mat-elevation-z8 ' + table.animation" style="background-color: white;">
+    <h2 style="text-align: center; padding: 5px; margin: 0;" *ngIf="table.title">{{ table.title }}</h2>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <input matInput type="text" placeholder="Buscar" (keyup)="applyFilter($event)">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field> 
+    <mat-table [dataSource]="dataSource" matSort [style]="'max-height:' + table.height + '!important;overflow: auto;'" [trackBy]="trackBy">
+      <ng-container *ngFor="let column of columns; let first = first; let last = last;">
+        <ng-container [matColumnDef]="column.property" [sticky]="first" *ngIf="!last">
+          <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header style="justify-content: center;">{{ column.name }}</mat-header-cell>
+          <mat-cell *matCellDef="let row" style="justify-content: center;" >
+            {{ 
+              (column?.pipe === 'custom' 
+                ? (table.array[0].pipe(row[column.property])) 
+                : getRowValue(row, column)
+              )
+            }}
+          </mat-cell>
+        </ng-container>
+        <ng-container *ngIf="last">
+          <ng-container [matColumnDef]="column.property" [stickyEnd]="table.actionMenu ? true : false">
+            <mat-header-cell *matHeaderCellDef mat-sort-header [style]="table.actionMenu ? 'max-width: 60px;' : 'justify-content: center;'">{{ column.name }}</mat-header-cell>
+            <mat-cell *matCellDef="let row" 
+              [style]="table.actionMenu ? 'max-width: 60px;' : 'justify-content: center;'">
+              <ng-container *ngIf="table.actionMenu">
+                <button mat-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item *ngFor="let item of table.actionMenu" (click)="runFunction(row, item)">
+                    <mat-icon>{{ item.icon }}</mat-icon>
+                    <span>{{ item.label }}</span>
+                  </button>
+                  <button mat-menu-item [cdkCopyToClipboard]="row | json" *ngIf="!production">
+                    <mat-icon>content_copy</mat-icon>
+                    <span>Copiar</span>
+                </button>
+                </mat-menu>
+              </ng-container>
+              <ng-container *ngIf="!table.actionMenu">
+                {{ getRowValue(row, column) }}
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedProperties; sticky: true" [style]="'min-width:' + (displayedProperties.length - 1) * table.rowWidth + 'px; height: 60px;'"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedProperties;" [style]="'min-width:' + (displayedProperties.length - 1) * table.rowWidth + 'px; height: 60px;'"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" class="mat-paginator-sticky" showFirstLastButtons></mat-paginator>
+  </div>
+  

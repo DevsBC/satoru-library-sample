@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { AuthService, EventLogService, ServerConnectionService } from 'satoru-library';
+import { Department } from './models/Department.class';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +8,10 @@ import { AuthService, EventLogService, ServerConnectionService } from 'satoru-li
 })
 export class AppComponent {
   title = 'satoru';
+  department = new Department();
+  form = this.department.getForm();
+  table = this.department.getTable([{ id: 'id', name: 'description', description: 'desc', head: 'Yo mero'}]);
+  constructor() {}
 
-  constructor( private server: ServerConnectionService, private eventLog: EventLogService) {}
-
-  saveTask(task: any) {
-    console.log(task);
-  }
-
-  saveEvent() {
-    const endpoint = this.server.initServerConnection('cp', 'event-log', 1);
-    const obs = this.eventLog.init('TEST', null, 'APP_COMPONENT', 'test', endpoint + '/set') as Observable<any>;
-    obs.subscribe(() => console.log('ok'));
-  }
+  
 }
